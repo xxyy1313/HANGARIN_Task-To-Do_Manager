@@ -1,0 +1,24 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Categories{% endblock %}
+{% block page_title %}Categories{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>All Categories</h3>
+        </div>
+        <div class="panel-body">
+            {% for category in categories %}
+                <div class="metric-row">
+                    <span>{{ category.name }}</span>
+                    <strong>{{ category.task_count }}</strong>
+                </div>
+            {% empty %}
+                <p>No categories found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

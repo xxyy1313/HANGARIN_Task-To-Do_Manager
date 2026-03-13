@@ -1,0 +1,29 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Tasks{% endblock %}
+{% block page_title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>All Tasks</h3>
+        </div>
+        <div class="panel-body">
+            {% for task in tasks %}
+                <div class="list-item">
+                    <div>
+                        <h4>{{ task.title }}</h4>
+                        <p>
+                            {{ task.category.name }} • {{ task.priority.name }} • Deadline: {{ task.deadline }}
+                        </p>
+                    </div>
+                    <span class="badge">{{ task.status }}</span>
+                </div>
+            {% empty %}
+                <p>No tasks found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

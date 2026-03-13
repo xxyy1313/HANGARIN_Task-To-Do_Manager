@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "tasks/base.html" %}
 
 {% block title %}Hangarin Dashboard{% endblock %}
 {% block page_title %}Dashboard{% endblock %}
@@ -14,44 +14,37 @@
         <span>Total Tasks</span>
         <h3>{{ total_tasks }}</h3>
     </div>
-
     <div class="stat-card accent-blue">
         <span>In Progress</span>
         <h3>{{ in_progress_count }}</h3>
     </div>
-
     <div class="stat-card accent-green">
         <span>Completed</span>
         <h3>{{ completed_count }}</h3>
     </div>
-
     <div class="stat-card accent-red">
         <span>Overdue</span>
         <h3>{{ overdue_count }}</h3>
     </div>
-
     <div class="stat-card accent-white">
         <span>Pending</span>
         <h3>{{ pending_count }}</h3>
     </div>
-
     <div class="stat-card accent-blue">
         <span>Sub Tasks</span>
         <h3>{{ total_subtasks }}</h3>
     </div>
-
     <div class="stat-card accent-green">
         <span>Notes</span>
         <h3>{{ total_notes }}</h3>
     </div>
-
     <div class="stat-card accent-yellow">
         <span>This Month</span>
         <h3>{{ this_month_count }}</h3>
     </div>
 </div>
 
-<div class="dashboard-grid">
+<div class="row-grid row-grid-3">
     <div class="panel">
         <div class="panel-header">
             <h3>Recent Tasks</h3>
@@ -105,7 +98,9 @@
             {% endfor %}
         </div>
     </div>
+</div>
 
+<div class="row-grid row-grid-2">
     <div class="panel">
         <div class="panel-header">
             <h3>Top Categories</h3>

@@ -1,0 +1,24 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Priorities{% endblock %}
+{% block page_title %}Priorities{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>All Priorities</h3>
+        </div>
+        <div class="panel-body">
+            {% for priority in priorities %}
+                <div class="metric-row">
+                    <span>{{ priority.name }}</span>
+                    <strong>{{ priority.task_count }}</strong>
+                </div>
+            {% empty %}
+                <p>No priorities found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

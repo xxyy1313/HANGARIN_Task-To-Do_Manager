@@ -1,0 +1,24 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Notes{% endblock %}
+{% block page_title %}Notes{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>All Notes</h3>
+        </div>
+        <div class="panel-body notes-stack">
+            {% for note in notes %}
+                <div class="note-card">
+                    <h4>{{ note.task.title }}</h4>
+                    <p>{{ note.content }}</p>
+                </div>
+            {% empty %}
+                <p>No notes found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

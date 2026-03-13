@@ -1,0 +1,27 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Sub Tasks{% endblock %}
+{% block page_title %}Sub Tasks{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>All Sub Tasks</h3>
+        </div>
+        <div class="panel-body">
+            {% for subtask in subtasks %}
+                <div class="list-item">
+                    <div>
+                        <h4>{{ subtask.title }}</h4>
+                        <p>Parent: {{ subtask.parent_task.title }}</p>
+                    </div>
+                    <span class="badge">{{ subtask.status }}</span>
+                </div>
+            {% empty %}
+                <p>No subtasks found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

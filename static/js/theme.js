@@ -7,11 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
         htmlElement.setAttribute("data-theme", savedTheme);
     }
 
-    themeToggle.addEventListener("click", function () {
-        const currentTheme = htmlElement.getAttribute("data-theme");
-        const newTheme = currentTheme === "dark" ? "light" : "dark";
+    if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+            const currentTheme = htmlElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
 
-        htmlElement.setAttribute("data-theme", newTheme);
-        localStorage.setItem("hangarin-theme", newTheme);
-    });
+            htmlElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("hangarin-theme", newTheme);
+        });
+    }
 });
