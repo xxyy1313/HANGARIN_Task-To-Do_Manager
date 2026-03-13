@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Hangarin Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="hero-block">
+    <h1>Overview</h1>
+    <p>Live summary • Task & To-Do Manager</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card accent-yellow">
+        <span>Total Tasks</span>
+        <h3>{{ total_tasks }}</h3>
+    </div>
+
+    <div class="stat-card accent-blue">
+        <span>In Progress</span>
+        <h3>{{ in_progress_count }}</h3>
+    </div>
+
+    <div class="stat-card accent-green">
+        <span>Completed</span>
+        <h3>{{ completed_count }}</h3>
+    </div>
+
+    <div class="stat-card accent-red">
+        <span>Overdue</span>
+        <h3>{{ overdue_count }}</h3>
+    </div>
+
+    <div class="stat-card accent-white">
+        <span>Pending</span>
+        <h3>{{ pending_count }}</h3>
+    </div>
+
+    <div class="stat-card accent-blue">
+        <span>Sub Tasks</span>
+        <h3>{{ total_subtasks }}</h3>
+    </div>
+
+    <div class="stat-card accent-green">
+        <span>Notes</span>
+        <h3>{{ total_notes }}</h3>
+    </div>
+
+    <div class="stat-card accent-yellow">
+        <span>This Month</span>
+        <h3>{{ this_month_count }}</h3>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Recent Tasks</h3>
+        </div>
+        <div class="panel-body">
+            {% for task in tasks %}
+                <div class="list-item">
+                    <div>
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.category.name }} • {{ task.priority.name }}</p>
+                    </div>
+                    <span class="badge">{{ task.status }}</span>
+                </div>
+            {% empty %}
+                <p>No tasks found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Recent Sub Tasks</h3>
+        </div>
+        <div class="panel-body">
+            {% for subtask in subtasks %}
+                <div class="list-item">
+                    <div>
+                        <h4>{{ subtask.title }}</h4>
+                        <p>Parent: {{ subtask.parent_task.title }}</p>
+                    </div>
+                    <span class="badge">{{ subtask.status }}</span>
+                </div>
+            {% empty %}
+                <p>No subtasks found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Recent Notes</h3>
+        </div>
+        <div class="panel-body">
+            {% for note in notes %}
+                <div class="note-card">
+                    <h4>{{ note.task.title }}</h4>
+                    <p>{{ note.content|truncatechars:100 }}</p>
+                </div>
+            {% empty %}
+                <p>No notes found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <h3>Top Categories</h3>
+        </div>
+        <div class="panel-body">
+            {% for category in top_categories %}
+                <div class="metric-row">
+                    <span>{{ category.name }}</span>
+                    <strong>{{ category.task_count }}</strong>
+                </div>
+            {% empty %}
+                <p>No categories found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <h3>By Priority</h3>
+        </div>
+        <div class="panel-body">
+            {% for priority in priority_breakdown %}
+                <div class="metric-row">
+                    <span>{{ priority.name }}</span>
+                    <strong>{{ priority.task_count }}</strong>
+                </div>
+            {% empty %}
+                <p>No priorities found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
