@@ -1,10 +1,14 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Notes{% endblock %}
 {% block page_title %}Notes{% endblock %}
 
 {% block content %}
 <div class="page-section">
+    <div class="page-actions">
+        <a href="{% url 'note_create' %}" class="new-task-btn">+ Add Note</a>
+    </div>
+
     <div class="panel">
         <div class="panel-header">
             <h3>All Notes</h3>
@@ -14,6 +18,10 @@
                 <div class="note-card">
                     <h4>{{ note.task.title }}</h4>
                     <p>{{ note.content }}</p>
+                    <div class="item-actions note-actions">
+                        <a href="{% url 'note_update' note.pk %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'note_delete' note.pk %}" class="delete-link">Delete</a>
+                    </div>
                 </div>
             {% empty %}
                 <p>No notes found.</p>

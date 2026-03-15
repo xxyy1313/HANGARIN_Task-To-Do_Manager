@@ -1,24 +1,86 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Tasks{% endblock %}
 {% block page_title %}Tasks{% endblock %}
 
 {% block content %}
 <div class="page-section">
+    <div class="page-actions">
+        <a href="{% url 'task_create' %}" class="new-task-btn">+ Add Task</a>
+    </div>
+
+    <div class="panel filter-panel">
+        <div class="panel-body">
+            <form method="get" class="filter-form">
+                <div class="search-box">
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Search tasks..."
+                        value="{{ search_query }}"
+                    >
+                </div>
+
+                <div class="filter-group">
+                    <select name="status">
+                        <option value="">All Statuses</option>
+                        {% for status in statuses %}
+                            <option value="{{ status }}" {% if status_filter == status %}selected{% endif %}>
+                                {{ status }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <select name="priority">
+                        <option value="">All Priorities</option>
+                        {% for priority in priorities %}
+                            <option value="{{ priority.id }}" {% if priority_filter == priority.id|stringformat:"s" %}selected{% endif %}>
+                                {{ priority.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <select name="category">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category_filter == category.id|stringformat:"s" %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-buttons">
+                    <button type="submit" class="filter-btn">Filter</button>
+                    <a href="{% url 'task_list' %}" class="clear-btn">Clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="panel">
         <div class="panel-header">
             <h3>All Tasks</h3>
         </div>
         <div class="panel-body">
             {% for task in tasks %}
-                <div class="list-item">
+                <div class="list-item list-item-actions">
                     <div>
                         <h4>{{ task.title }}</h4>
                         <p>
                             {{ task.category.name }} • {{ task.priority.name }} • Deadline: {{ task.deadline }}
                         </p>
                     </div>
-                    <span class="badge">{{ task.status }}</span>
+
+                    <div class="item-actions">
+                        <span class="badge">{{ task.status }}</span>
+                        <a href="{% url 'task_update' task.pk %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'task_delete' task.pk %}" class="delete-link">Delete</a>
+                    </div>
                 </div>
             {% empty %}
                 <p>No tasks found.</p>

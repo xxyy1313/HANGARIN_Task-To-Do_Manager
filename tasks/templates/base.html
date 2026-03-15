@@ -65,10 +65,39 @@
                     <h2 class="page-title">{% block page_title %}Dashboard{% endblock %}</h2>
                 </div>
 
-                <div class="topbar-actions">
-                    <button id="themeToggle" class="theme-toggle" type="button">Toggle Theme</button>
-                    <a href="/admin/" class="new-task-btn">Admin Panel</a>
-                </div>
+         <div class="topbar-actions">
+    <div class="theme-switcher">
+        <button id="darkModeBtn" class="theme-icon-btn" type="button" title="Dark mode">🌙</button>
+        <button id="lightModeBtn" class="theme-icon-btn" type="button" title="Light mode">☀</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-trigger" id="avatarBtn" type="button">
+            <span class="profile-avatar">
+                <img src="{% static 'images/avatar.png' %}" alt="Administrator">
+            </span>
+
+            <span class="profile-name">
+                {% if request.user.is_authenticated %}
+                {{ request.user.username }}
+                {% else %}
+                Administrator
+                {% endif %}
+            </span>
+
+            <span class="profile-caret">▾</span>
+        </button>
+
+        <div class="profile-dropdown" id="profileDropdown">
+            <a href="#">Settings</a>
+            <a href="/admin/">Admin Panel</a>
+            <hr>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+</div>
+
+    
             </header>
 
             <section class="content-area">

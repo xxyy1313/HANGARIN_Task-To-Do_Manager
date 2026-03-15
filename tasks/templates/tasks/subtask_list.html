@@ -1,22 +1,31 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Sub Tasks{% endblock %}
 {% block page_title %}Sub Tasks{% endblock %}
 
 {% block content %}
 <div class="page-section">
+    <div class="page-actions">
+        <a href="{% url 'subtask_create' %}" class="new-task-btn">+ Add Sub Task</a>
+    </div>
+
     <div class="panel">
         <div class="panel-header">
             <h3>All Sub Tasks</h3>
         </div>
         <div class="panel-body">
             {% for subtask in subtasks %}
-                <div class="list-item">
+                <div class="list-item list-item-actions">
                     <div>
                         <h4>{{ subtask.title }}</h4>
                         <p>Parent: {{ subtask.parent_task.title }}</p>
                     </div>
-                    <span class="badge">{{ subtask.status }}</span>
+
+                    <div class="item-actions">
+                        <span class="badge">{{ subtask.status }}</span>
+                        <a href="{% url 'subtask_update' subtask.pk %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'subtask_delete' subtask.pk %}" class="delete-link">Delete</a>
+                    </div>
                 </div>
             {% empty %}
                 <p>No subtasks found.</p>

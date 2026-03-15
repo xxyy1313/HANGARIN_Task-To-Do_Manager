@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="page-section">
+    <div class="panel form-panel">
+        <div class="panel-header">
+            <h3>{{ title }}</h3>
+        </div>
+        <div class="panel-body">
+            <p class="delete-text">Are you sure you want to delete <strong>{{ object }}</strong>?</p>
+
+            <form method="post" class="custom-form">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="delete-btn">Delete</button>
+                    <a href="{% url cancel_url %}" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

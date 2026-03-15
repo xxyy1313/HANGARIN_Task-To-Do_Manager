@@ -1,0 +1,71 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account • Hangarin</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <h1>Hangarin</h1>
+                <p>Task & To-Do Manager</p>
+            </div>
+
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Start organizing your work and productivity.</p>
+            </div>
+
+            <div class="social-auth">
+                <a href="/accounts/google/login/" class="social-btn">
+                    <span class="social-icon">
+                        <i class="fa-brands fa-google"></i>
+                    </span>
+                    <span>Continue with Google</span>
+                </a>
+
+                <a href="/accounts/github/login/" class="social-btn">
+                    <span class="social-icon">
+                        <i class="fa-brands fa-github"></i>
+                    </span>
+                    <span>Continue with GitHub</span>
+                </a>
+            </div>
+
+            <div class="auth-divider">
+                <span>or register with email</span>
+            </div>
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="auth-error">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="{% url 'login' %}">Sign In</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
