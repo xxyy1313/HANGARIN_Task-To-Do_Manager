@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}Profile Settings{% endblock %}
+{% block page_title %}Profile Settings{% endblock %}
+
+{% block content %}
+<div class="settings-page">
+
+    <div class="settings-header">
+        <div>
+            <h1 class="settings-title">Profile Settings</h1>
+            <p class="settings-subtitle">Manage your account, preferences, and connected services.</p>
+        </div>
+    </div>
+
+    <div class="settings-grid">
+
+        <div class="settings-panel">
+            <div class="settings-panel-header">
+                <h3>Account</h3>
+                <p>Basic profile information</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-avatar-row">
+                    <div class="settings-avatar">
+                        <img src="{% static 'images/admin-avatar.jpg' %}" alt="Profile">
+                    </div>
+
+                    <div class="settings-avatar-actions">
+                        <button class="settings-btn-primary" type="button">Upload Photo</button>
+                        <button class="settings-btn-secondary" type="button">Remove</button>
+                    </div>
+                </div>
+
+                <div class="settings-form-grid">
+                    <div class="settings-field">
+                        <label>Username</label>
+                        <input type="text" value="{{ request.user.username }}">
+                    </div>
+
+                    <div class="settings-field">
+                        <label>Email</label>
+                        <input type="email" value="{{ request.user.email }}">
+                    </div>
+
+                    <div class="settings-field full-width">
+                        <label>Display Name</label>
+                        <input type="text" value="Administrator">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <div class="settings-panel-header">
+                <h3>Security</h3>
+                <p>Manage account security</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-item-row">
+                    <div>
+                        <h4>Change Password</h4>
+                        <p>Update your password regularly for better security.</p>
+                    </div>
+                    <button class="settings-btn-secondary" type="button">Change</button>
+                </div>
+
+                <div class="settings-item-row">
+                    <div>
+                        <h4>Two-Factor Authentication</h4>
+                        <p>Extra protection for your account.</p>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox">
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <div class="settings-panel-header">
+                <h3>Appearance</h3>
+                <p>Customize your dashboard experience</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-field">
+                    <label>Theme</label>
+                    <select>
+                        <option>Dark</option>
+                        <option>Light</option>
+                    </select>
+                </div>
+
+                <div class="settings-field">
+                    <label>Accent Color</label>
+                    <select>
+                        <option>Violet</option>
+                        <option>Pink</option>
+                        <option>Blue</option>
+                        <option>Green</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <div class="settings-panel-header">
+                <h3>Task Preferences</h3>
+                <p>Default behavior for tasks</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-field">
+                    <label>Default Priority</label>
+                    <select>
+                        <option>High</option>
+                        <option selected>Medium</option>
+                        <option>Low</option>
+                        <option>Critical</option>
+                        <option>Optional</option>
+                    </select>
+                </div>
+
+                <div class="settings-field">
+                    <label>Default Category</label>
+                    <select>
+                        <option>Work</option>
+                        <option>School</option>
+                        <option selected>Personal</option>
+                        <option>Finance</option>
+                        <option>Projects</option>
+                    </select>
+                </div>
+
+                <div class="settings-item-row">
+                    <div>
+                        <h4>Show Completed Tasks</h4>
+                        <p>Keep completed tasks visible in the dashboard.</p>
+                    </div>
+                    <label class="settings-switch">
+                        <input type="checkbox" checked>
+                        <span class="settings-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <div class="settings-panel-header">
+                <h3>Connected Accounts</h3>
+                <p>Manage your login providers</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-item-row">
+                    <div>
+                        <h4>Google</h4>
+                        <p>Connected for quick sign in.</p>
+                    </div>
+                    <button class="settings-btn-secondary" type="button">Manage</button>
+                </div>
+
+                <div class="settings-item-row">
+                    <div>
+                        <h4>GitHub</h4>
+                        <p>Connected for quick sign in.</p>
+                    </div>
+                    <button class="settings-btn-secondary" type="button">Manage</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-panel danger-panel">
+            <div class="settings-panel-header">
+                <h3>Danger Zone</h3>
+                <p>Careful with these actions</p>
+            </div>
+
+            <div class="settings-panel-body">
+                <div class="settings-item-row">
+                    <div>
+                        <h4>Delete Account</h4>
+                        <p>Permanently remove your account and data.</p>
+                    </div>
+                    <button class="settings-btn-danger" type="button">Delete</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="settings-footer-actions">
+        <button class="settings-btn-secondary" type="button">Cancel</button>
+        <button class="settings-btn-primary" type="button">Save Changes</button>
+    </div>
+
+</div>
+{% endblock %}

@@ -6,10 +6,19 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils import timezone
+from datetime import timedelta
+from django.contrib.auth.decorators import login_required
+
 
 
 from .models import Task, SubTask, Note, Category, Priority
 from .forms import TaskForm, SubTaskForm, NoteForm, CategoryForm, PriorityForm, RegisterForm
+
+@login_required
+def profile_settings(request):
+    return render(request, "tasks/profile_settings.html", {
+        "page_name": "settings",
+    })
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -191,9 +200,27 @@ def task_delete(request, pk):
 
 def subtask_list(request):
     subtasks = SubTask.objects.select_related("parent_task").all().order_by("-created_at")
+
+    search_query = request.GET.get("q", "").strip()
+    status_filter = request.GET.get("status", "").strip()
+
+    if search_query:
+        subtasks = subtasks.filter(
+            Q(title__icontains=search_query) |
+            Q(parent_task__title__icontains=search_query)
+        )
+
+    if status_filter:
+        subtasks = subtasks.filter(status=status_filter)
+
+    statuses = ["Pending", "In Progress", "Completed"]
+
     return render(request, "tasks/subtask_list.html", {
         "page_name": "subtasks",
         "subtasks": subtasks,
+        "statuses": statuses,
+        "search_query": search_query,
+        "status_filter": status_filter,
     })
 
 
@@ -248,11 +275,31 @@ def subtask_delete(request, pk):
 
 def note_list(request):
     notes = Note.objects.select_related("task").all().order_by("-created_at")
+
+    search_query = request.GET.get("q", "").strip()
+    created_filter = request.GET.get("created_at", "").strip()
+
+    if search_query:
+        notes = notes.filter(
+            Q(content__icontains=search_query) |
+            Q(task__title__icontains=search_query)
+        )
+
+    now = timezone.now()
+
+    if created_filter == "today":
+        notes = notes.filter(created_at__date=now.date())
+    elif created_filter == "week":
+        notes = notes.filter(created_at__gte=now - timedelta(days=7))
+    elif created_filter == "month":
+        notes = notes.filter(created_at__year=now.year, created_at__month=now.month)
+
     return render(request, "tasks/note_list.html", {
         "page_name": "notes",
         "notes": notes,
+        "search_query": search_query,
+        "created_filter": created_filter,
     })
-
 
 def note_create(request):
     if request.method == "POST":
@@ -305,9 +352,16 @@ def note_delete(request, pk):
 
 def category_list(request):
     categories = Category.objects.annotate(task_count=Count("tasks")).order_by("name")
+
+    search_query = request.GET.get("q", "").strip()
+
+    if search_query:
+        categories = categories.filter(name__icontains=search_query)
+
     return render(request, "tasks/category_list.html", {
         "page_name": "categories",
         "categories": categories,
+        "search_query": search_query,
     })
 
 
@@ -362,11 +416,17 @@ def category_delete(request, pk):
 
 def priority_list(request):
     priorities = Priority.objects.annotate(task_count=Count("tasks")).order_by("name")
+
+    search_query = request.GET.get("q", "").strip()
+
+    if search_query:
+        priorities = priorities.filter(name__icontains=search_query)
+
     return render(request, "tasks/priority_list.html", {
         "page_name": "priorities",
         "priorities": priorities,
+        "search_query": search_query,
     })
-
 
 def priority_create(request):
     if request.method == "POST":

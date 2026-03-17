@@ -9,6 +9,21 @@
         <a href="{% url 'priority_create' %}" class="new-task-btn">+ Add Priority</a>
     </div>
 
+    <div class="panel filter-panel">
+        <div class="panel-body">
+            <form method="get" class="filter-form single-search-form">
+                <div class="search-box">
+                    <input type="text" name="q" placeholder="Search priorities..." value="{{ search_query }}">
+                </div>
+
+                <div class="filter-buttons">
+                    <button type="submit" class="filter-btn">Search</button>
+                    <a href="{% url 'priority_list' %}" class="clear-btn">Clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="panel">
         <div class="panel-header">
             <h3>All Priorities</h3>
@@ -18,7 +33,7 @@
                 <div class="metric-row">
                     <span>{{ priority.name }}</span>
                     <div class="item-actions">
-                        <strong>{{ priority.task_count }}</strong>
+                        <strong>{{ priority.task_count }} task{{ priority.task_count|pluralize }}</strong>
                         <a href="{% url 'priority_update' priority.pk %}" class="edit-btn">Edit</a>
                         <a href="{% url 'priority_delete' priority.pk %}" class="delete-link">Delete</a>
                     </div>

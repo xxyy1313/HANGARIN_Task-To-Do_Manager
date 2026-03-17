@@ -1,3 +1,4 @@
+from tasks.views import profile_settings
 from django.contrib import admin
 from django.urls import path, include
 from tasks.views import (
@@ -44,6 +45,8 @@ urlpatterns = [
     path("priorities/create/", priority_create, name="priority_create"),
     path("priorities/<int:pk>/edit/", priority_update, name="priority_update"),
     path("priorities/<int:pk>/delete/", priority_delete, name="priority_delete"),
+
+    path("settings/", profile_settings, name="profile_settings"),
 
     path("admin/", admin.site.urls),
 ]
