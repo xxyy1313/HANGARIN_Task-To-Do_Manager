@@ -27,3 +27,9 @@ Hangarin is a modern task management web application that helps users organize t
 - HTML / CSS / JavaScript
 - SQLite
 - django-allauth (OAuth authentication)
+
+
+## ADMIN LOGIN
+
+ - lenovo (username)
+ - akosimia13A# (password)
