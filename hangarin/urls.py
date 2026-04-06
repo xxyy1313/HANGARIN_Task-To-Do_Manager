@@ -14,6 +14,7 @@ from tasks.views import (
 
 urlpatterns = [
     path("accounts/", include("allauth.urls")),
+    path('', include('pwa.urls')),
 
     path("login/", login_view, name="login"),
     path("register/", register_view, name="register"),
