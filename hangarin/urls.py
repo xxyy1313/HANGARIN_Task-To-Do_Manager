@@ -1,10 +1,9 @@
-from tasks.views import profile_settings
 from django.contrib import admin
 from django.urls import path, include
 from tasks.views import (
-    login_view, register_view,logout_view,
+    profile_settings,
+    login_view, register_view, logout_view,
     dashboard,
-
     task_list, task_create, task_update, task_delete,
     subtask_list, subtask_create, subtask_update, subtask_delete,
     note_list, note_create, note_update, note_delete,
@@ -14,7 +13,7 @@ from tasks.views import (
 
 urlpatterns = [
     path("accounts/", include("allauth.urls")),
-    path('', include('pwa.urls')),
+    path("", include("pwa.urls")),
 
     path("login/", login_view, name="login"),
     path("register/", register_view, name="register"),
@@ -48,6 +47,5 @@ urlpatterns = [
     path("priorities/<int:pk>/delete/", priority_delete, name="priority_delete"),
 
     path("settings/", profile_settings, name="profile_settings"),
-
     path("admin/", admin.site.urls),
 ]
